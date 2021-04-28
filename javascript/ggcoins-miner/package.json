@@ -1,0 +1,29 @@
+{
+  "name": "ggcoins-miner",
+  "version": "1.0.0",
+  "description": "A simple JS script that can login on gagadget.com to mine some ggcoins. To do it run it in a cron job on a daily basis.",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode=production --config=webpack.config.js",
+    "b": "webpack",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production",
+    "watch": "webpack --watch"
+  },
+  "keywords": [
+    "ggcoins",
+    "gagadget"
+  ],
+  "author": "driversti",
+  "license": "ISC",
+  "dependencies": {
+    "jsdom": "^16.5.3"
+  },
+  "devDependencies": {
+    "del": "^6.0.0",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-uglify": "^3.0.2"
+  }
+}
