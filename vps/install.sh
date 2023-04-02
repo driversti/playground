@@ -19,8 +19,14 @@ echo "User 'testuser' created successfully with sudo privileges."
 # Switch to the new user
 su - testuser << 'EOF'
 # Install Zsh
-su -c 'apt install zsh -y'
-su -c 'chsh -s "$(which zsh)" $USER'
+sudo apt install zsh -y
+sudo chsh -s "$(which zsh)" $USER
+
+# Exit the subshell
+EOF
+
+# Switch to the testuser with zsh as a shell
+su - testuser -s /bin/zsh << 'EOF'
 
 # Install Oh-My-Zsh for the new user
 echo "Installing Oh-My-Zsh for testuser"
@@ -43,5 +49,12 @@ source ~/.zshrc
 # Exit the subshell
 EOF
 
-# Switch to the testuser with zsh as a shell
-su - testuser -s /bin/zsh
+# Switch to the new user with zsh shell
+printf "Script execution finished.\n\nWould you like to switch to the testuser with the Zsh shell now? [y/n]: "
+read -r switch_to_testuser
+
+if [ "$switch_to_testuser" = "y" ]; then
+    su - testuser -s /bin/zsh
+else
+    echo "You can switch to the testuser with the Zsh shell later by running 'su - testuser -s /bin/zsh' in the terminal."
+fi
