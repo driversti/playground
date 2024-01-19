@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ChatGPT Content Width Adjuster (CWA)
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.2
 // @description  Adjust the width of the content area in ChatGPT dialog interactively with buttons
 // @author       driversti
 // @match        https://chat.openai.com/*
@@ -12,7 +12,18 @@
 (function() {
     'use strict';
 
-    let currentWidth = 48; // Starting width in rem, set this to your initial desired width
+    let currentWidth;
+    const windowWidth = window.innerWidth;
+
+    if (windowWidth >= 1280) {
+        currentWidth = 48;
+    } else if (windowWidth >= 1024) {
+        currentWidth = 48;
+    } else if (windowWidth >= 768) {
+        currentWidth = 40;
+    } else {
+        currentWidth = 40;
+    }
 
     // Function to update the width
     function updateWidth(newWidth) {
@@ -20,6 +31,17 @@
         GM_addStyle(`
             @media (min-width: 1280px) {
                 .xl\\:max-w-\\[48rem\\] {
+                    max-width: ${currentWidth}rem !important;
+                }
+            }
+            
+            @media (min-width: 1024px) {
+                .lg\\:max-w-\\[48rem\\], .lg\\:max-w-\\[40rem\\] {
+                    max-width: ${currentWidth}rem !important;
+                }
+            }
+            @media (min-width: 768px) {
+                .md\\:max-w-3xl {
                     max-width: ${currentWidth}rem !important;
                 }
             }
